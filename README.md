@@ -46,7 +46,9 @@ Usage:
 
     haxelib run ExtensionBoilerplate --namespace YourNamespace
 
-So what does `--namespace YourNamespace` mean? Well, the thing is, an extension can have a lot of C++ functions, and I need a way to tell which ones need to be accessible from Haxe. The way I settled on is filtering by namespace. Functions are only included if they're in a namespace that you specify on the command line.
+So what does `--namespace YourNamespace` mean? Well, the thing is, an extension can have a lot of C++ functions, and I need a way to tell which ones should be processed. I settled on filtering by namespace. Functions are only included if they're in a namespace that you specify on the command line.
+
+Don't worry, you can specify as many namespaces as you like.
 
 Quirks
 ------
