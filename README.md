@@ -58,3 +58,4 @@ This tool:
 - ...only recognizes functions that are declared in header files.
 - ...uses a naive method of identifying functions; if a function declaration spans multiple line, the function will not be recognized.
 - ...makes no distinction between commented code and uncommented code.
+- ...does not generate any Haxe code. For that, see [NDLLClassBuilder](https://github.com/player-03/haxeutils/blob/master/README.md#ndllclassbuilderhx).
