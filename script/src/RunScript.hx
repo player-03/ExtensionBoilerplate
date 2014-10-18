@@ -102,10 +102,19 @@ class RunScript {
 		templateContext.extension = extensionName;
 		templateContext.extensionLowerCase = extensionName.toLowerCase();
 		
+		//If the target provides an ExtensionBoilerplate.txt file, add
+		//additional arguments from that.
+		var args:Array<String> = Sys.args();
+		if(FileSystem.exists(extensionDir + "ExtensionBoilerplate.txt")) {
+			var whitespace:EReg = ~/\s+/gs;
+			args = args.concat(whitespace.split(
+				File.getContent(extensionDir + "ExtensionBoilerplate.txt")));
+		}
+		
 		acceptedNamespaces = [templateContext.extensionLowerCase];
 		var namespaceFlag:Bool = false;
 		var templatesFlag:Bool = false;
-		for(arg in Sys.args()) {
+		for(arg in args) {
 			if(namespaceFlag) {
 				if(~/\w+/.match(arg)) {
 					acceptedNamespaces.push(arg);
