@@ -8,7 +8,7 @@ The problem
 
 Let's say I want to call this C++ method from Haxe:
 
-TestExp.cpp
+TestExt.cpp
 
     int SampleMethod(int inputValue) {
         return inputValue * 100;
