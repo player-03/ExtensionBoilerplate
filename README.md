@@ -10,7 +10,7 @@ Let's say I want to call this C++ method from Haxe:
 
 TestExt.cpp
 
-    int SampleMethod(int inputValue) {
+    int sampleMethod(int inputValue) {
         return inputValue * 100;
     }
 
@@ -18,14 +18,14 @@ I will need to add the following code as well:
 
 Utils.h
 
-    int SampleMethod(int inputValue);
+    int sampleMethod(int inputValue);
 
 ExternalInterface.cpp
 
-    static value testext_sample_method (value inputValue) {
-        return(alloc_int(SampleMethod(val_int(inputValue)));
+    static value testext_sampleMethod (value inputValue) {
+        return(alloc_int(sampleMethod(val_int(inputValue)));
     }
-    DEFINE_PRIM (testext_sample_method, 1);
+    DEFINE_PRIM (testext_sampleMethod, 1);
 
 Build.xml
 
@@ -60,4 +60,4 @@ This tool:
 - ...only recognizes functions that are declared in header files.
 - ...uses a naive method of identifying functions; if a function declaration spans multiple line, the function will not be recognized.
 - ...makes no distinction between commented code and uncommented code.
-- ...does not generate any Haxe code. For that, see [NDLLClassBuilder](https://github.com/player-03/haxeutils/blob/master/README.md#ndllclassbuilderhx).
+- ...does not generate any Haxe code. For that, see [inthebox-macros](https://github.com/shoebox/inthebox-macros#cpp--ios-calls).
