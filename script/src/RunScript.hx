@@ -42,9 +42,6 @@ class RunScript {
 			//There's very little reason for the build() function to
 			//exist, but this line would feel wrong without it.
 			new RunScript(Sys.args()[Sys.args().length - 1]).build();
-			
-			//Also, I'm really hoping those arguments behave the same way
-			//on other people's computers as they do on mine...
 		}
 	}
 	

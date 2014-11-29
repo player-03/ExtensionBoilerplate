@@ -38,7 +38,6 @@ class FunctionData {
 	public var namespace:String;
 	public var returnType:String;
 	public var name:String;
-	public var splitName:String;
 	public var args:Array<VariableData>;
 	
 	/**
@@ -52,8 +51,8 @@ class FunctionData {
 	
 	/**
 	 * Creates a function based on the current value matched by
-	 * FUNCTION_MATCHER. Results unspecified if FUNCTION_MATCHER did not
-	 * just match a string.
+	 * FUNCTION_MATCHER. The result is unspecified if FUNCTION_MATCHER
+	 * did not just match a string.
 	 * @param	namespace The namespace that the function was found in.
 	 */
 	public function new(namespace:String) {
@@ -63,7 +62,6 @@ class FunctionData {
 				+ StringTools.trim(FUNCTION_MATCHER.matched(2)));
 		returnTypeIsVoid = returnType == "void";
 		name = FUNCTION_MATCHER.matched(3);
-		splitName = Utils.splitCamelCase(name).toLowerCase();
 		
 		args = new Array<VariableData>();
 		var argsSource:String = FUNCTION_MATCHER.matched(4);

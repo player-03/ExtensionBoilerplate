@@ -151,65 +151,6 @@ class Utils {
 		}
 	}
 	
-	/**
-	 * Inserts a delimiter between words in the given string.
-	 * 
-	 * Capital letters indicate the start of a word if and only if they
-	 * are preceeded or followed by a lowercase letter. There is also a
-	 * word break before and after a set of consecutive digits. If the
-	 * string already contains non-alphanumeric characters, these
-	 * characters are left alone.
-	 * @example "player03" becomes "player_03"
-	 * @example "ETAAlphaChiEpsilon" becomes "ETA_Alpha_Chi_Epsilon"
-	 * @param	input A string in camel case.
-	 * @param	delimiter The delimiter to insert.
-	 * @return A new string, with words separated by the delimiter.
-	 */
-	public static function splitCamelCase(input:String, delimiter:String = "_"):String {
-		var underscoresPlaced:Int = 0;
-		var i:Int = input.length;
-		var current:Int;
-		var before:Int;
-		var after:Int = -1;
-		var addUnderscore:Bool;
-		while(i --> 1) { //This is the "converges to" operator. :P
-			current = StringTools.fastCodeAt(input, i);
-			before = StringTools.fastCodeAt(input, i - 1);
-			
-			addUnderscore = false;
-			if(isUppercase(current)) {
-				//"aA" becomes "a_A"
-				addUnderscore = isLowercase(before)
-					//"AAa" becomes "A_Aa"
-					|| isUppercase(before) && isLowercase(after);
-			} else if(isDigit(current)) {
-				//"a1" becomes "a_1"
-				addUnderscore = isLowercase(before) || isUppercase(before);
-			} else if(isLowercase(current)) {
-				//"1a" becomes "1_a"
-				addUnderscore = isDigit(before);
-			}
-			
-			if(addUnderscore) {
-				input = input.substr(0, i) + "_" + input.substr(i);
-			}
-			
-			after = current;
-		}
-		
-		return input;
-	}
-	
-	private static inline function isLowercase(char:Int):Bool {
-		return char >= "a".code && char <= "z".code;
-	}
-	private static inline function isUppercase(char:Int):Bool {
-		return char >= "A".code && char <= "Z".code;
-	}
-	private static inline function isDigit(char:Int):Bool {
-		return char >= "0".code && char <= "9".code;
-	}
-	
 	public static function regexMatch(resolve:Dynamic, regex:String, string:String):Bool {
 		var ereg:EReg = new EReg(regex, "");
 		return ereg.match(string);
