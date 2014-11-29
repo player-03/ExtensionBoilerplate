@@ -8,7 +8,7 @@ The problem
 
 Let's say I want to call this C++ method from Haxe:
 
-TestExp.cpp
+TestExt.cpp
 
     int SampleMethod(int inputValue) {
         return inputValue * 100;
@@ -44,11 +44,13 @@ Installation:
 
 Usage:
 
-    haxelib run ExtensionBoilerplate --namespace YourNamespace
+    haxelib run ExtensionBoilerplate --namespace YourNamespace --templates path/to/my/templates/
 
-So what does `--namespace YourNamespace` mean? Well, the thing is, an extension can have a lot of C++ functions, and I need a way to tell which ones should be processed. I settled on filtering by namespace. Functions are only included if they're in a namespace that you specify on the command line.
+So what does `--namespace YourNamespace` mean? Well, the thing is, an extension can have a lot of C++ functions, and I need a way to tell which ones should be processed. I settled on filtering by namespace. Functions are only included if they're in a namespace that you specify on the command line. Don't worry, you can specify as many namespaces as you like.
 
-Don't worry, you can specify as many namespaces as you like.
+And `--templates path/to/my/templates/`? This one is optional, but it's there in case the templates I provide don't work out for you. My Build.xml template sets all the default flags, but maybe you have a custom flag you want to set. All you have to do is make a copy of Build.xml, make the changes you want, and then provide the path to it. For more information, see templates/Readme.md.
+
+I realize these are a lot of command-line arguments to type out, and that you won't need to change them very much. For your convenience, you can add an "ExtensionBoilerplate.txt" file to your extension (must be in the top-level folder). Put your extra arguments in there, run `haxelib run ExtensionBoilerplate`, and the text file's contents will be treated as command-line arguments. (Bonus: line breaks are allowed.)
 
 Quirks
 ------
