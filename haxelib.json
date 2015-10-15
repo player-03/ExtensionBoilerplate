@@ -1,0 +1,10 @@
+{
+	"name": "ExtensionBoilerplate",
+	"url": "https://github.com/player-03/ExtensionBoilerplate",
+	"license": "MIT",
+	"tags": [],
+	"description": "Boilerplate code generator for OpenFL's native extensions.",
+	"version": "1.0.1",
+	"releasenote": "Added haxelib.json",
+	"contributors": [ "player_03" ]
+}
