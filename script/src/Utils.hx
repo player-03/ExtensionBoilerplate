@@ -128,11 +128,13 @@ class Utils {
 		type = type.toLowerCase();
 		switch(type) {
 			//Void is an exception, but the template will skip the alloc_ and
-			//var_ calls in that case.
-			case "void", "bool", "int", "float", "double":
+			//val_ calls in that case.
+			case "void", "bool", "int", "float":
 				return type;
 			case "char*":
 				return "string";
+			case "double":
+				return "float";
 			//I have no idea if these will really work in practice. I'm just
 			//copying down the names defined in CFFIAPI.h.
 			case "wchar_t*":
