@@ -77,7 +77,7 @@ class FunctionData {
 			args[argsCount - 1].isLast = true;
 		}
 		
-		Utils.log("Added " + toString());
+		Utils.log("\t" + toString());
 	}
 	
 	public function toString():String {

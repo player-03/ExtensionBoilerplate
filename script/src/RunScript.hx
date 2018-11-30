@@ -74,6 +74,10 @@ class RunScript {
 	private var acceptedNamespaces:Array<String>;
 	
 	private function new(extensionDir:String) {
+		if(!StringTools.endsWith(extensionDir, "/")
+			&& !StringTools.endsWith(extensionDir, "\\")) {
+			extensionDir += "/";
+		}
 		this.extensionDir = extensionDir;
 		
 		templateContext = { };
@@ -85,10 +89,6 @@ class RunScript {
 		//Get info about the extension in general.
 		var extensionName:String = null;
 		try {
-			if(!StringTools.endsWith(extensionDir, "/")
-				&& !StringTools.endsWith(extensionDir, "\\")) {
-				extensionDir += "/";
-			}
 			extensionName = Json.parse(File.getContent(extensionDir + "haxelib.json")).name;
 		} catch(e:Dynamic) {
 			printUsage();
@@ -151,8 +151,6 @@ class RunScript {
 	}
 	
 	private function build():Void {
-		Utils.log("Starting ExtensionBoilerplate...");
-		
 		generateBuildXML();
 		
 		generateExternalInterface();
@@ -166,6 +164,7 @@ class RunScript {
 	 */
 	private function generateBuildXML():Void {
 		var sourceFiles:Array<FileData> = new Array<FileData>();
+		Utils.log("Adding files to Build.xml:");
 		Utils.addFiles(sourceFiles, sourceFileExtensions, extensionDir + "project/");
 		templateContext.sourceFiles = sourceFiles;
 		
@@ -174,7 +173,7 @@ class RunScript {
 		buildXmlOut.writeString(new Template(buildXmlIn).execute(templateContext, templateMacros));
 		buildXmlOut.close();
 		
-		Utils.log('Saved $extensionDir/project/Build.xml.');
+		Utils.log('Saved ${extensionDir}project/Build.xml.');
 	}
 	
 	/**
@@ -183,11 +182,13 @@ class RunScript {
 	 */
 	private function generateExternalInterface():Void {
 		var headerFiles:Array<FileData> = new Array<FileData>();
+		Utils.log("Searching for header files:");
 		Utils.addFiles(headerFiles, headerFileExtensions, extensionDir + "project/include/");
 		templateContext.headerFiles = headerFiles;
 		
 		//Extract the functions that should be available.
 		var exposedFunctions:Array<FunctionData> = new Array<FunctionData>();
+		Utils.log("Adding functions to ExternalInterface:");
 		for(headerFile in headerFiles) {
 			Utils.extractFunctions(exposedFunctions,
 							extensionDir + "project/include/" + headerFile.path,
@@ -197,7 +198,7 @@ class RunScript {
 		
 		//If the user moved the ExternalInterface file or changed its
 		//extension, respect the change.
-		var externalInterfaceFile:String = Utils.findFile("ExternalInterface", extensionDir + "/project");
+		var externalInterfaceFile:String = Utils.findFile("ExternalInterface", extensionDir + "project");
 		if(externalInterfaceFile == null) {
 			externalInterfaceFile = extensionDir + "project/common/ExternalInterface.cpp";
 		}

@@ -50,7 +50,7 @@ class Utils {
 			var dotIndex:Int = path.lastIndexOf(".");
 			if(dotIndex > 1 && fileExtensions.indexOf(path.substr(dotIndex + 1)) >= 0) {
 				list.push(new FileData(path));
-				log('Added $path');
+				log('\t$path');
 			}
 		}
 	}
@@ -108,7 +108,7 @@ class Utils {
 					currentNamespace = null;
 					unclosedBrackets = 0;
 				} else {
-					log('Processing namespace "$currentNamespace"...');
+					log('$currentNamespace {');
 				}
 			} else if(currentNamespace != null) {
 				var c:Int;
@@ -120,6 +120,7 @@ class Utils {
 						unclosedBrackets--;
 						if(unclosedBrackets <= 0) {
 							currentNamespace = null;
+							log("}");
 							break;
 						}
 					}
