@@ -210,8 +210,8 @@ class RunScript {
 	}
 	
 	private static function printUsage():Void {
-		trace("Usage: haxelib run ExtensionBoilerplate [extension path] [--namespace XYZ]");
-		trace("If you do not specify the extension path, you must run the command from within your extension's directory.");
+		trace("Usage: haxelib run ExtensionBoilerplate [--namespace XYZ]");
+		trace("You must run the command from within your extension's directory.");
 		trace("You must specify a namespace for it to be exposed. You may specify as many namespaces as you like.");
 	}
 }
