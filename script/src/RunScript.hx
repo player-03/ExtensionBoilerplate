@@ -25,6 +25,8 @@
 package;
 
 import haxe.Json;
+import haxe.Log;
+import haxe.PosInfos;
 import haxe.Template;
 import sys.FileSystem;
 import sys.io.File;
@@ -139,6 +141,8 @@ class RunScript {
 				templatesFlag = false;
 			} else if(arg == "--templates") {
 				templatesFlag = true;
+			} else if(arg == "-verbose" || arg == "--verbose") {
+				Utils.verbose = true;
 			}
 		}
 		
@@ -147,9 +151,13 @@ class RunScript {
 	}
 	
 	private function build():Void {
+		Utils.log("Starting ExtensionBoilerplate...");
+		
 		generateBuildXML();
 		
 		generateExternalInterface();
+		
+		Utils.log("ExtensionBoilerplate finished.");
 	}
 	
 	/**
@@ -165,6 +173,8 @@ class RunScript {
 		var buildXmlOut:FileOutput = File.write(extensionDir + "project/Build.xml");
 		buildXmlOut.writeString(new Template(buildXmlIn).execute(templateContext, templateMacros));
 		buildXmlOut.close();
+		
+		Utils.log('Saved $extensionDir/project/Build.xml.');
 	}
 	
 	/**
@@ -195,10 +205,12 @@ class RunScript {
 		var externalInterfaceOut:FileOutput = File.write(externalInterfaceFile);
 		externalInterfaceOut.writeString(new Template(externalInterfaceIn).execute(templateContext, templateMacros));
 		externalInterfaceOut.close();
+		
+		Utils.log('Saved $externalInterfaceFile.');
 	}
 	
 	private static function printUsage():Void {
-		trace("Usage: haxelib run ExtensionBuilder [extension path] [--namespace XYZ]");
+		trace("Usage: haxelib run ExtensionBoilerplate [extension path] [--namespace XYZ]");
 		trace("If you do not specify the extension path, you must run the command from within your extension's directory.");
 		trace("You must specify a namespace for it to be exposed. You may specify as many namespaces as you like.");
 	}

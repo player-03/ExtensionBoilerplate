@@ -30,6 +30,17 @@ import sys.io.File;
 import sys.io.FileInput;
 
 class Utils {
+	/**
+	 * Whether to print additional information while running.
+	 */
+	public static var verbose:Bool = false;
+	
+	public static function log(value:Dynamic):Void {
+		if(verbose) {
+			Sys.stdout().writeString(Std.string(value) + "\n");
+		}
+	}
+	
 	public static function addFiles(list:Array<FileData>, fileExtensions:Array<String>, basePath:String, path:String = ""):Void {
 		if(FileSystem.isDirectory(basePath + path)) {
 			for(item in FileSystem.readDirectory(basePath + path)) {
@@ -39,6 +50,7 @@ class Utils {
 			var dotIndex:Int = path.lastIndexOf(".");
 			if(dotIndex > 1 && fileExtensions.indexOf(path.substr(dotIndex + 1)) >= 0) {
 				list.push(new FileData(path));
+				log('Added $path');
 			}
 		}
 	}
@@ -95,6 +107,8 @@ class Utils {
 				if(acceptedNamespaces.indexOf(currentNamespace) < 0) {
 					currentNamespace = null;
 					unclosedBrackets = 0;
+				} else {
+					log('Processing namespace "$currentNamespace"...');
 				}
 			} else if(currentNamespace != null) {
 				var c:Int;
@@ -113,6 +127,8 @@ class Utils {
 			}
 			
 			if(currentNamespace != null && FunctionData.FUNCTION_MATCHER.match(line)) {
+				//Hack: using the internal state of FUNCTION_MATCHER to pass extra
+				//data to FunctionData.
 				list.push(new FunctionData(currentNamespace));
 			}
 		}
@@ -170,5 +186,4 @@ class Utils {
 			return resultElse;
 		}
 	}
-
 }

@@ -76,6 +76,8 @@ class FunctionData {
 		if(argsCount > 0) {
 			args[argsCount - 1].isLast = true;
 		}
+		
+		Utils.log("Added " + toString());
 	}
 	
 	public function toString():String {
