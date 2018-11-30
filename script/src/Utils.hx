@@ -47,9 +47,11 @@ class Utils {
 		if(FileSystem.isDirectory(basePath)) {
 			var f:String;
 			for(item in FileSystem.readDirectory(basePath)) {
-				f = findFile(substr, basePath + "/" + item);
-				if(f != null) {
-					return f;
+				if(item != "obj") {
+					f = findFile(substr, basePath + "/" + item);
+					if(f != null) {
+						return f;
+					}
 				}
 			}
 		} else {
